@@ -1,4 +1,5 @@
 import { Router } from "express";
+import fetch from 'cross-fetch';
 import { fetchBSV20ByOutpoint } from "./bsv20utils.js";
 const router = Router();
 
