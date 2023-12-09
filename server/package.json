@@ -1,0 +1,15 @@
+{
+  "name": "woc-plugin-example",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-prettify": "^0.1.2",
+    "scrypt-ord": "^0.1.12-test.2"
+  }
+}
