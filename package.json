@@ -1,5 +1,5 @@
 {
-  "name": "1sats-plugin",
+  "name": "bsv20-plugin",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
