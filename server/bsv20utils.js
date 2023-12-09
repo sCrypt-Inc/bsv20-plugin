@@ -1,5 +1,5 @@
 
-
+import fetch from 'cross-fetch';
 export async function fetchBSV20ByOutpoint(outpoint, network) {
 
     //Select the correct api url based on network
