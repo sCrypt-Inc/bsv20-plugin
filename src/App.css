@@ -28,15 +28,24 @@
   color: #61dafb;
 }
 
-.txid {
-  font-size: 12px;
-  margin-top: -1rem;
-}
 
 .bsv20 {
   text-align: left;
   margin-left: 2rem;
 }
+
+.bsv20 .validated {
+  color: green;
+}
+
+.bsv20 .pending {
+  color: yellow;
+}
+
+.bsv20 .invalid {
+  color: red;
+}
+
 
 @keyframes App-logo-spin {
   from {
