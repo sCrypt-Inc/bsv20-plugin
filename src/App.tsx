@@ -71,6 +71,14 @@ const renderBsv20 = (bsv20: any) => {
         ) : (
           <></>
         )}
+        {bsv20.owner ? (
+          <div className="bsv20">
+            <Chip className={statusText} label='owner:' />
+            &nbsp;<Chip label={bsv20.owner}  size="small" variant="outlined" />
+          </div>
+        ) : (
+          <></>
+        )}
       </Box>
     );
   }
@@ -113,8 +121,12 @@ function HomePage() {
           const input = details.inputs[i];
           const output = details.outputs[i];
           tmpData.push({
-            input: input?.bsv20?.data?.bsv20 ? input.bsv20.data.bsv20 : "-",
-            output: output?.bsv20?.data?.bsv20 ? output.bsv20.data.bsv20 : "-",
+            input: input?.bsv20?.data?.bsv20 ? Object.assign({}, input.bsv20.data.bsv20, {
+              owner: input?.bsv20?.owner
+            }) : "-",
+            output: output?.bsv20?.data?.bsv20 ? Object.assign({}, output.bsv20.data.bsv20, {
+              owner: output?.bsv20?.owner
+            }) : "-",
             key: input ? `${input.vin.txid}_${input.vin.vout}` : `${tx}_${i}`,
           });
         }
