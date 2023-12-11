@@ -130,6 +130,20 @@ const columns: TableProps<any>["columns"] = [
   },
 ];
 
+function format(input: any) {
+  const json = input?.bsv20?.data?.insc?.json || {};
+
+  const {lim, max} = json;
+
+  return input?.bsv20?.data?.bsv20
+              ? Object.assign({}, input.bsv20.data.bsv20, {
+                owner: input?.bsv20?.owner,
+                lim,
+                max,
+              })
+              : "-";
+}
+
 function HomePage() {
   // Get the userId param from the URL.
   let { network, tx } = useParams();
@@ -146,17 +160,10 @@ function HomePage() {
         for (let i = 0; i < nRows; i++) {
           const input = details.inputs[i];
           const output = details.outputs[i];
+
           tmpData.push({
-            input: input?.bsv20?.data?.bsv20
-              ? Object.assign({}, input.bsv20.data.bsv20, {
-                  owner: input?.bsv20?.owner,
-                })
-              : "-",
-            output: output?.bsv20?.data?.bsv20
-              ? Object.assign({}, output.bsv20.data.bsv20, {
-                  owner: output?.bsv20?.owner,
-                })
-              : "-",
+            input: format(input),
+            output: format(output),
             key: input ? `${input.vin.txid}_${input.vin.vout}` : `${tx}_${i}`,
           });
         }
