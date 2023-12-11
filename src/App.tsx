@@ -28,12 +28,12 @@ const renderBsv20 = (bsv20: any) => {
     console.log('statusText',statusText, bsv20)
     return (
       <Box>
-        <div className="bsv20">
+        <div className={"bsv20"}>
           <Chip className={statusText} label={statusText} />
         </div>
         {bsv20.id ? (
           <div className="bsv20">
-            <Chip label='id:' />
+            <Chip className={statusText} label='id:' />
             &nbsp;<Chip label={bsv20.id}  size="small" variant="outlined" />
           </div>
         ) : (
@@ -41,23 +41,23 @@ const renderBsv20 = (bsv20: any) => {
         )}
         {bsv20.tick ? (
           <div className="bsv20">
-            <Chip label='Tick:' />
+            <Chip className={statusText} label='tick:' />
             &nbsp;<Chip label={bsv20.tick}  size="small" variant="outlined" />
           </div>
         ) : (
           <></>
         )}
         <div className="bsv20">
-          <Chip label='Op:' />
+          <Chip className={statusText} label='op:' />
           &nbsp;<Chip label={bsv20.op}  size="small" variant="outlined" />
         </div>
         <div className="bsv20">
-          <Chip label='Amt:' />
+          <Chip className={statusText} label='amount:' />
           &nbsp;<Chip label={bsv20.amt}  size="small" variant="outlined" />
         </div>
         {bsv20.sym ? (
           <div className="bsv20">
-            <Chip label='Sym:' />
+            <Chip className={statusText} label='symbol:' />
             &nbsp;<Chip label={bsv20.sym}  size="small" variant="outlined" />
           </div>
         ) : (
@@ -65,7 +65,7 @@ const renderBsv20 = (bsv20: any) => {
         )}
         {bsv20.dec ? (
           <div className="bsv20">
-            <Chip label='Dec:' />
+            <Chip className={statusText} label='decimals:' />
             &nbsp;<Chip label={bsv20.dec}  size="small" variant="outlined" />
           </div>
         ) : (

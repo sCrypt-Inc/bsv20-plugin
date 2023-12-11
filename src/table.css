@@ -1,5 +1,5 @@
 .rc-table-tbody-virtual {
-    border-left: 1px solid red;
+    border-left: 1px solid grey;
   }
   .rc-table-tbody-virtual * {
     box-sizing: border-box;
@@ -16,8 +16,8 @@
     flex: 0 0 var(--virtual-width);
     width: var(--virtual-width);
     padding: 8px 16px;
-    border-right: 2px solid red;
-    border-bottom: 1px solid red;
+    border-right: 2px solid grey;
+    border-bottom: 1px solid grey;
   }
   .rc-table {
     position: relative;
@@ -41,7 +41,7 @@
     padding: 16px 8px;
     white-space: normal;
     word-break: break-word;
-    border: 1px solid red;
+    border: 1px solid grey;
     border-top: 0;
     border-left: 0;
     transition: box-shadow 0.3s;
@@ -49,7 +49,7 @@
   .rc-table-rtl.rc-table th,
   .rc-table-rtl.rc-table td {
     border-right: 0;
-    border-left: 1px solid red;
+    border-left: 1px solid grey;
   }
   .rc-table-cell {
     background: #f4f4f4;
@@ -62,13 +62,13 @@
     border-right-color: transparent;
   }
   .rc-table-rtl .rc-table-cell-fix-right:last-child {
-    border-right-color: red;
+    border-right-color: grey;
   }
   .rc-table-rtl .rc-table-cell-fix-left:last-child {
     border-left-color: transparent;
   }
   .rc-table-rtl .rc-table-cell-fix-left-first {
-    box-shadow: 1px 0 0 red;
+    box-shadow: 1px 0 0 grey;
   }
   .rc-table-cell-fix-left-first::after,
   .rc-table-cell-fix-left-last::after {
@@ -87,7 +87,7 @@
   }
   .rc-table-cell-fix-right-first,
   .rc-table-cell-fix-right-last {
-    box-shadow: -1px 0 0 red;
+    box-shadow: -1px 0 0 grey;
   }
   .rc-table-rtl .rc-table-cell-fix-right-first,
   .rc-table-rtl .rc-table-cell-fix-right-last {
@@ -157,7 +157,7 @@
     left: auto;
   }
   .rc-table-header {
-    border: 1px solid red;
+    border: 1px solid grey;
     border-right: 0;
     border-bottom: 0;
   }
@@ -171,13 +171,13 @@
     background: #f7f7f7;
   }
   .rc-table-content {
-    border: 1px solid red;
+    border: 1px solid grey;
     border-right: 0;
     border-bottom: 0;
     border-radius: 5px 0 0 0;
   }
   .rc-table-body {
-    border: 1px solid red;
+    border: 1px solid grey;
     border-right: 0;
     border-bottom: 0;
     border-top: 0;
@@ -188,7 +188,7 @@
     right: 0;
     bottom: 0;
     z-index: 1;
-    border-right: 1px solid red;
+    border-right: 1px solid grey;
     content: '';
   }
   .rc-table-expanded-row .rc-table-cell {
@@ -206,7 +206,7 @@
     right: 1px;
     bottom: 0;
     width: 0;
-    border-right: 1px solid red;
+    border-right: 1px solid grey;
     content: '';
   }
   .rc-table-row-expand-icon {
@@ -231,27 +231,27 @@
   }
   .rc-table-title {
     padding: 16px 8px;
-    border: 1px solid red;
+    border: 1px solid grey;
     border-bottom: 0;
   }
   .rc-table-caption {
     padding: 16px 8px;
     font-size: 40px;
     color: #fff;
-    border-right: 1px solid red;
-    border-bottom: 1px solid red;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
   }
   .rc-table-footer {
     padding: 16px 8px;
-    border: 1px solid red;
+    border: 1px solid grey;
     border-top: 0;
   }
   .rc-table tfoot td {
     background: #fff;
   }
   .rc-table-summary {
-    border-top: 1px solid red;
-    border-left: 1px solid red;
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
   }
   .rc-table-sticky-holder {
     position: sticky;
