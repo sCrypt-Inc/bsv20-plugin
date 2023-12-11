@@ -17,15 +17,14 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 
 function getTextByStatus(status: number) {
-  return status === 1 ? "validated" : (status === 0 ? "pending" : "invalid")
+  return status === 1 ? "validated" : status === 0 ? "pending" : "invalid";
 }
 
 const renderBsv20 = (bsv20: any) => {
   if (typeof bsv20 === "object") {
-
     const statusText = getTextByStatus(bsv20.status);
 
-    console.log('statusText',statusText, bsv20)
+    console.log("statusText", statusText, bsv20);
     return (
       <Box>
         <div className={"bsv20"}>
@@ -33,48 +32,77 @@ const renderBsv20 = (bsv20: any) => {
         </div>
         {bsv20.id ? (
           <div className="bsv20">
-            <Chip className={statusText} label='id:' />
-            &nbsp;<Chip label={bsv20.id}  size="small" variant="outlined" />
+            <Chip className={statusText} label="id:" />
+            &nbsp;
+            <Chip label={bsv20.id} size="small" variant="outlined" />
           </div>
         ) : (
           <></>
         )}
         {bsv20.tick ? (
           <div className="bsv20">
-            <Chip className={statusText} label='tick:' />
-            &nbsp;<Chip label={bsv20.tick}  size="small" variant="outlined" />
+            <Chip className={statusText} label="tick:" />
+            &nbsp;
+            <Chip label={bsv20.tick} size="small" variant="outlined" />
           </div>
         ) : (
           <></>
         )}
         <div className="bsv20">
-          <Chip className={statusText} label='op:' />
-          &nbsp;<Chip label={bsv20.op}  size="small" variant="outlined" />
+          <Chip className={statusText} label="op:" />
+          &nbsp;
+          <Chip label={bsv20.op} size="small" variant="outlined" />
         </div>
-        <div className="bsv20">
-          <Chip className={statusText} label='amount:' />
-          &nbsp;<Chip label={bsv20.amt}  size="small" variant="outlined" />
-        </div>
+        {bsv20.amt ? (
+          <div className="bsv20">
+            <Chip className={statusText} label="amount:" />
+            &nbsp;
+            <Chip label={bsv20.amt} size="small" variant="outlined" />
+          </div>
+        ) : (
+          <></>
+        )}
+        {bsv20.max ? (
+          <div className="bsv20">
+            <Chip className={statusText} label="max:" />
+            &nbsp;
+            <Chip label={bsv20.max} size="small" variant="outlined" />
+          </div>
+        ) : (
+          <></>
+        )}
+        {bsv20.lim ? (
+          <div className="bsv20">
+            <Chip className={statusText} label="lim:" />
+            &nbsp;
+            <Chip label={bsv20.lim} size="small" variant="outlined" />
+          </div>
+        ) : (
+          <></>
+        )}
         {bsv20.sym ? (
           <div className="bsv20">
-            <Chip className={statusText} label='symbol:' />
-            &nbsp;<Chip label={bsv20.sym}  size="small" variant="outlined" />
+            <Chip className={statusText} label="symbol:" />
+            &nbsp;
+            <Chip label={bsv20.sym} size="small" variant="outlined" />
           </div>
         ) : (
           <></>
         )}
         {bsv20.dec ? (
           <div className="bsv20">
-            <Chip className={statusText} label='decimals:' />
-            &nbsp;<Chip label={bsv20.dec}  size="small" variant="outlined" />
+            <Chip className={statusText} label="decimals:" />
+            &nbsp;
+            <Chip label={bsv20.dec} size="small" variant="outlined" />
           </div>
         ) : (
           <></>
         )}
         {bsv20.owner ? (
           <div className="bsv20">
-            <Chip className={statusText} label='owner:' />
-            &nbsp;<Chip label={bsv20.owner}  size="small" variant="outlined" />
+            <Chip className={statusText} label="owner:" />
+            &nbsp;
+            <Chip label={bsv20.owner} size="small" variant="outlined" />
           </div>
         ) : (
           <></>
@@ -102,7 +130,6 @@ const columns: TableProps<any>["columns"] = [
   },
 ];
 
-
 function HomePage() {
   // Get the userId param from the URL.
   let { network, tx } = useParams();
@@ -113,7 +140,6 @@ function HomePage() {
     fetch(`/api/tx-decode/${network}/1sats/${tx}`)
       .then((res) => res.json())
       .then((details) => {
-
         const tmpData: any[] = [];
         let nRows = Math.max(details.inputs.length, details.outputs.length);
 
@@ -121,12 +147,16 @@ function HomePage() {
           const input = details.inputs[i];
           const output = details.outputs[i];
           tmpData.push({
-            input: input?.bsv20?.data?.bsv20 ? Object.assign({}, input.bsv20.data.bsv20, {
-              owner: input?.bsv20?.owner
-            }) : "-",
-            output: output?.bsv20?.data?.bsv20 ? Object.assign({}, output.bsv20.data.bsv20, {
-              owner: output?.bsv20?.owner
-            }) : "-",
+            input: input?.bsv20?.data?.bsv20
+              ? Object.assign({}, input.bsv20.data.bsv20, {
+                  owner: input?.bsv20?.owner,
+                })
+              : "-",
+            output: output?.bsv20?.data?.bsv20
+              ? Object.assign({}, output.bsv20.data.bsv20, {
+                  owner: output?.bsv20?.owner,
+                })
+              : "-",
             key: input ? `${input.vin.txid}_${input.vin.vout}` : `${tx}_${i}`,
           });
         }
