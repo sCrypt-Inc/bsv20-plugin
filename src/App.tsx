@@ -109,6 +109,8 @@ const renderBsv20 = (bsv20: any) => {
         )}
       </Box>
     );
+  } else if(typeof bsv20 === 'string') {
+    return <Box>{bsv20}</Box>;
   }
   return <Box>-</Box>;
 };
@@ -130,18 +132,23 @@ const columns: TableProps<any>["columns"] = [
   },
 ];
 
-function format(input: any) {
-  const json = input?.bsv20?.data?.insc?.json || {};
+function format(ordJson: any, isOutput: boolean) {
+
+  if(typeof ordJson === 'undefined') {
+    return '-'
+  }
+
+  const json = ordJson?.bsv20?.data?.insc?.json || {};
 
   const {lim, max} = json;
 
-  return input?.bsv20?.data?.bsv20
-              ? Object.assign({}, input.bsv20.data.bsv20, {
-                owner: input?.bsv20?.owner,
+  return ordJson?.bsv20?.data?.bsv20
+              ? Object.assign({}, ordJson.bsv20.data.bsv20, {
+                owner: ordJson?.bsv20?.owner,
                 lim,
                 max,
               })
-              : "-";
+              : (isOutput ? 'Non-BSV20 output' : 'Non-BSV20 input');
 }
 
 function HomePage() {
@@ -153,7 +160,7 @@ function HomePage() {
   useEffect(() => {
     fetch(`/api/tx-decode/${network}/1sats/${tx}`)
       .then((res) => res.json())
-      .then((details) => {
+      .then((details: any) => {
         const tmpData: any[] = [];
         let nRows = Math.max(details.inputs.length, details.outputs.length);
 
@@ -162,8 +169,8 @@ function HomePage() {
           const output = details.outputs[i];
 
           tmpData.push({
-            input: format(input),
-            output: format(output),
+            input: format(input, false),
+            output: format(output, true),
             key: input ? `${input.vin.txid}_${input.vin.vout}` : `${tx}_${i}`,
           });
         }
@@ -180,7 +187,7 @@ function HomePage() {
             <CircularProgress />
           </Box>
         ) : (
-          <Table columns={columns} data={data} caption="BSV-20 Details" />
+          <Table columns={columns} data={data} caption="BSV20 Details" />
         )}
       </header>
     </div>
