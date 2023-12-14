@@ -37,7 +37,7 @@ const renderBsv20 = (bsv20: any) => {
             justifyContent: "center",
           }}
         >
-          <Chip label={bsv20.index} />
+          <Chip label={"#" + bsv20.index} />
         </Box>
 
         {typeof bsv20.m === "string" ? (
