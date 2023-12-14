@@ -181,7 +181,7 @@ function HomePage() {
   let { network, tx } = useParams();
 
   const [data, setData] = useState<Array<any>>([]);
-  const [pageCount, setPageCount] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(1);
   const [page, setPage] = React.useState(1);
   const [loadingPage, setLoadingPage] = React.useState(false);
 
@@ -191,7 +191,7 @@ function HomePage() {
     fetch(`/api/tx-decode/${network}/1sats/${tx}?page=${page}`)
       .then((res) => res.json())
       .then((details: any) => {
-        setPageCount(details.pageCount || 20);
+        setPageCount(details.pageCount || 1);
         const tmpData: any[] = [];
         let nRows = Math.max(details.inputs.length, details.outputs.length);
 
@@ -230,7 +230,7 @@ function HomePage() {
         ) : (
           <Container>
             <Table columns={columns} data={data} caption="BSV20 Details" />
-            {pageCount > 0 ? (
+            {pageCount > 1 ? (
               <Pagination
                 sx={{ backgroundColor: "white", padding: 1 }}
                 count={pageCount}
