@@ -13,6 +13,8 @@ Example http://localhost:3000/tx-decode/main/order/0000000000000000017480fc53fbc
 router.get("/:network/1sats/:tx", async function (req, res, next) {
   const tx = req.params.tx;
   const network = req.params.network;
+  
+  let page = req.query.page || 1;
   //Select the correct api url based on network
   const wocApiUrl = process.env[`${network}_WOC_API_URL`.toUpperCase()];
 
@@ -22,26 +24,43 @@ router.get("/:network/1sats/:tx", async function (req, res, next) {
     const response = await fetch(`${wocApiUrl}/tx/hash/${tx}`);
     const data = await response.json();
 
-    const inputs = await Promise.all(data.vin.map(async vin => {
+    const maxRows = Math.max(data.vin.length, data.vout.length);
+
+    const pageCount = Math.ceil(maxRows/ 10)
+
+
+    let vins = data.vin;
+    let vouts = data.vout;
+    let startIndex = 0;
+    if(pageCount > 1) {
+      startIndex = (page - 1)*10;
+      vins = vins.slice(startIndex, startIndex + 10)
+      vouts = vouts.slice(startIndex, startIndex + 10)
+    }
+
+    const inputs = await Promise.all(vins.map(async (vin, i) => {
       const bsv20 = await fetchBSV20ByOutpoint(`${vin.txid}_${vin.vout}`, network);
       return {
         bsv20,
-        vin
+        vin,
+        index: startIndex + i
       }
     }));
 
-    const outputs = await Promise.all(data.vout.map(async (vout, i) => {
-      const bsv20 = await fetchBSV20ByOutpoint(`${tx}_${i}`, network);
+    const outputs = await Promise.all(vouts.map(async (vout, i) => {
+      const bsv20 = await fetchBSV20ByOutpoint(`${tx}_${startIndex+i}`, network);
       return {
         bsv20,
         vout,
+        index: startIndex + i
       }
     }));
 
     //Render ascii output of the hex using the neon light themed template
     res.json({
       inputs,
-      outputs
+      outputs,
+      pageCount
     });
   } catch (e) {
     console.log(e);
