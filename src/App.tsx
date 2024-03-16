@@ -15,7 +15,10 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { Backdrop, Container, Pagination } from "@mui/material";
 
-function getTextByStatus(status: number) {
+function getTextByStatus(status: number | undefined) {
+  if(typeof status === 'undefined') {
+    return 'pending';
+  }
   return status === 1 ? "validated" : status === 0 ? "pending" : "invalid";
 }
 
